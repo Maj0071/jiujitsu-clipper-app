@@ -1,0 +1,81 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-primary: #cc0000;
+    --color-secondary: #0066cc;
+  }
+
+  body {
+    @apply font-sans text-gray-900 bg-bjj-gray-light antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading;
+  }
+
+  /* Custom base styles */
+  [type='text'],
+  [type='email'],
+  [type='password'],
+  textarea {
+    @apply w-full rounded-lg border-gray-300 focus:ring-bjj-blue focus:border-bjj-blue;
+  }
+}
+
+@layer components {
+  /* Buttons */
+  .btn {
+    @apply px-6 py-3 rounded-lg font-medium transition-colors duration-200;
+  }
+  .btn-primary {
+    @apply btn bg-bjj-red text-white hover:bg-bjj-red-dark;
+  }
+  .btn-secondary {
+    @apply btn bg-bjj-blue text-white hover:bg-bjj-blue-dark;
+  }
+  .btn-outline {
+    @apply btn border-2 border-bjj-blue text-bjj-blue hover:bg-bjj-blue hover:text-white;
+  }
+
+  /* Cards */
+  .card {
+    @apply bg-white rounded-lg shadow-bjj overflow-hidden;
+  }
+  .card-header {
+    @apply bg-bjj-red text-white p-4;
+  }
+  .card-body {
+    @apply p-6;
+  }
+
+  /* Navigation */
+  .nav-link {
+    @apply px-4 py-2 text-gray-700 hover:text-bjj-red transition-colors;
+  }
+  .nav-link.active {
+    @apply text-bjj-red font-medium;
+  }
+}
+
+@layer utilities {
+  /* Text */
+  .text-shadow {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Layout */
+  .clip-path-hero {
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+  }
+
+  /* Animations */
+  .animate-pulse-slow {
+    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "short_name": "BJJ Coach",
+  "name": "Jiu-Jitsu Coaching Platform",
+  "description": "Premium instructional content and private coaching for Brazilian Jiu-Jitsu",
+  "icons": [
+    {
+      "src": "icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#cc0000",
+  "background_color": "#ffffff",
+  "orientation": "portrait-primary",
+  "categories": ["education", "sports"],
+  "screenshots": [
+    {
+      "src": "screenshots/homepage.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide"
+    }
+  ]
+}
