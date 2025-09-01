@@ -13,6 +13,7 @@ import StudentDashboard from '../pages/student/Dashboard';
 import StudentChatListPage from '../pages/student/ChatListPage';
 import StudentChatWindowPage from '../pages/student/ChatWindowPage';
 import EditorPage from '../pages/EditorPage';
+import CheckoutPage from '../pages/CheckoutPage';
 
 const router = createBrowserRouter([
   // Public authentication route
@@ -47,6 +48,7 @@ const router = createBrowserRouter([
           { path: ':coachId', element: <StudentChatWindowPage /> },
         ],
       },
+      { path: 'cart', element: <CheckoutPage /> },
       { path: 'editor', element: <EditorPage /> },
       { path: '*', element: <Navigate to='/' replace /> },
     ],

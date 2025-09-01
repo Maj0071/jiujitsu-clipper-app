@@ -1,50 +1,57 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { db } from '../../firebase';
+import { collection, query, where, onSnapshot } from 'firebase/firestore';
 
 interface Thread {
   id: string;
   coachName: string;
-  lastMessage: string;
-  lastTimestamp: string;
+  lastMessage?: string;
 }
 
 interface StudentChatListProps {
   studentId: string;
   selectedThreadId: string | null;
-  onSelect: (id: string) => void;
+  onSelect: (threadId: string) => void;
 }
 
-export default function StudentChatList({
-  studentId,
-  selectedThreadId,
-  onSelect,
-}: StudentChatListProps) {
+export default function StudentChatList({ studentId, selectedThreadId, onSelect }: StudentChatListProps) {
   const [threads, setThreads] = useState<Thread[]>([]);
 
   useEffect(() => {
     if (!studentId) return;
-    fetch(`/api/students/${studentId}/chats/threads`)
-      .then(res => res.json())
-      .then((data: Thread[]) => setThreads(data))
-      .catch(console.error);
+    const q = query(
+      collection(db, 'chats'),
+      where('studentId', '==', studentId)
+    );
+    const unsubscribe = onSnapshot(q, snapshot => {
+      const data = snapshot.docs.map(doc => ({ id: doc.id, ...(doc.data() as any) }));
+      setThreads(data);
+    });
+    return unsubscribe;
   }, [studentId]);
 
+  if (threads.length === 0) {
+    return (
+      <div className="p-4 text-gray-500">
+        You have no conversations yet.
+      </div>
+    );
+  }
+
   return (
-    <div className="w-1/3 border-r overflow-y-auto">
+    <ul className="divide-y divide-gray-200">
       {threads.map(thread => (
-        <div
+        <li
           key={thread.id}
+          className={`p-3 cursor-pointer ${thread.id === selectedThreadId ? 'bg-gray-100' : 'hover:bg-gray-50'}`}
           onClick={() => onSelect(thread.id)}
-          className={`p-4 cursor-pointer ${
-            thread.id === selectedThreadId ? 'bg-gray-200' : 'hover:bg-gray-100'
-          }`}
         >
-          <div className="font-semibold">{thread.coachName}</div>
-          <div className="text-sm text-gray-600 truncate">{thread.lastMessage}</div>
-          <div className="text-xs text-gray-400">
-            {new Date(thread.lastTimestamp).toLocaleTimeString()}
-          </div>
-        </div>
+          <p className="font-medium text-bjj-blue">{thread.coachName}</p>
+          <p className="text-sm text-gray-600 mt-1">
+            {thread.lastMessage || 'No messages yet.'}
+          </p>
+        </li>
       ))}
-    </div>
+    </ul>
   );
 }
